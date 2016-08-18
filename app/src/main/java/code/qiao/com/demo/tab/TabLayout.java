@@ -16,15 +16,18 @@ import code.qiao.com.tipsview.TipsView;
 /**
  * Created by Administrator on 2016/3/24.
  */
-public class TabLayout extends LinearLayout implements View.OnClickListener,ViewPager.OnPageChangeListener{
+public class TabLayout extends LinearLayout implements View.OnClickListener, ViewPager.OnPageChangeListener
+{
 
     private ViewPager mViewPager;
 
-    public TabLayout(Context context) {
+    public TabLayout(Context context)
+    {
         super(context);
     }
 
-    public TabLayout(Context context, AttributeSet attrs) {
+    public TabLayout(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
     }
 
@@ -32,21 +35,26 @@ public class TabLayout extends LinearLayout implements View.OnClickListener,View
      * Sets the associated view pager. Note that the assumption here is that the pager content
      * (number of tabs and tab titles) does not change after this call has been made.
      */
-    public void setViewPager(ViewPager viewPager) {
+    public void setViewPager(ViewPager viewPager)
+    {
         removeAllViews();
 
         mViewPager = viewPager;
-        if (viewPager != null) {
+        if (viewPager != null)
+        {
             viewPager.addOnPageChangeListener(this);
             populateTabItem();
         }
     }
 
-    private void populateTabItem() {
+    private void populateTabItem()
+    {
         final PagerAdapter adapter = mViewPager.getAdapter();
 
-        if(adapter instanceof FragmentPagerItemAdapter) {
-            for (int i = 0; i < adapter.getCount(); i++) {
+        if (adapter instanceof FragmentPagerItemAdapter)
+        {
+            for (int i = 0; i < adapter.getCount(); i++)
+            {
                 TabItemView tabView = new TabItemView(getContext(),
                         ((FragmentPagerItemAdapter) adapter).getPageIconRes(i),
                         adapter.getPageTitle(i).toString());
@@ -57,22 +65,27 @@ public class TabLayout extends LinearLayout implements View.OnClickListener,View
                 LayoutParams llp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 llp.weight = 1;
                 llp.topMargin = llp.bottomMargin = 10;
-                addView(tabView,llp);
+                addView(tabView, llp);
             }
-            ((TabItemView)getChildAt(0)).setIconAlpha(1f);
+            ((TabItemView) getChildAt(0)).setIconAlpha(1f);
         }
     }
 
-    public void setTabtips(int position,int tipNumber){
-        if(position < getChildCount()){
-            ((TabItemView)getChildAt(position)).setNotifyNum(tipNumber);
+    public void setTabtips(int position, int tipNumber)
+    {
+        if (position < getChildCount())
+        {
+            ((TabItemView) getChildAt(position)).setNotifyNum(tipNumber);
         }
     }
 
     @Override
-    public void onClick(View v) {
-        for (int i = 0; i < getChildCount(); i++) {
-            if (v == getChildAt(i)) {
+    public void onClick(View v)
+    {
+        for (int i = 0; i < getChildCount(); i++)
+        {
+            if (v == getChildAt(i))
+            {
                 mViewPager.setCurrentItem(i);
                 return;
             }
@@ -80,22 +93,28 @@ public class TabLayout extends LinearLayout implements View.OnClickListener,View
     }
 
     private int mScrollState;
+
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (positionOffset > 0){
-            ((TabItemView)getChildAt(position)).setIconAlpha(1 - positionOffset);
-            ((TabItemView)getChildAt(position + 1)).setIconAlpha(positionOffset);
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+    {
+        if (positionOffset > 0)
+        {
+            ((TabItemView) getChildAt(position)).setIconAlpha(1 - positionOffset);
+            ((TabItemView) getChildAt(position + 1)).setIconAlpha(positionOffset);
         }
     }
 
     @Override
-    public void onPageScrollStateChanged(int state) {
+    public void onPageScrollStateChanged(int state)
+    {
         mScrollState = state;
     }
 
     @Override
-    public void onPageSelected(int position) {
-        if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
+    public void onPageSelected(int position)
+    {
+        if (mScrollState == ViewPager.SCROLL_STATE_IDLE)
+        {
         }
     }
 
